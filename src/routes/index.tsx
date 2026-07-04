@@ -1,5 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
+import { NewsletterSignupForm } from "@/components/newsletter-signup-form";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -392,26 +394,7 @@ function Newsletter() {
             One carefully researched article at a time. No hype, no breaking news —
             only ideas that remain valuable years from now.
           </p>
-          <form
-            className="mt-14 flex flex-col sm:flex-row border border-rule bg-background"
-            onSubmit={(e) => e.preventDefault()}
-          >
-            <label htmlFor="email" className="sr-only">Email address</label>
-            <input
-              id="email"
-              type="email"
-              required
-              autoComplete="email"
-              placeholder="your@email.com"
-              className="flex-1 bg-transparent px-6 py-5 text-[15px] placeholder:text-ink-soft/60 focus:outline-none focus-visible:ring-1 focus-visible:ring-accent"
-            />
-            <button
-              type="submit"
-              className="bg-ink text-paper px-8 py-5 text-[14px] tracking-wide hover:bg-ink-soft transition-colors"
-            >
-              Subscribe
-            </button>
-          </form>
+          <NewsletterSignupForm source="homepage" />
           <p className="mt-6 text-[12px] text-ink-soft">
             No advertising. No tracking beyond what is required. Unsubscribe at any time.
           </p>

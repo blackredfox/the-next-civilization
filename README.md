@@ -66,6 +66,12 @@ Render should be configured as a Node.js Web Service:
 Render provides the `PORT` environment variable for web services. The Nitro
 Node server reads the platform port at runtime.
 
+Newsletter signup uses Loops from the server-side `/api/subscribe` route.
+Configure these Render environment variables:
+
+- `LOOPS_API_KEY`: required Loops API key.
+- `LOOPS_MAILING_LIST_ID`: optional Loops mailing list ID for newsletter signups.
+
 For `thenextcivilization.ai`, add the domain in the Render service settings,
 configure DNS with the domain provider, then verify the domain in Render. Keep
 the GitHub branch deployable: every pushed commit should pass `npm run check`
