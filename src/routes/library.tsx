@@ -12,7 +12,6 @@ export const Route = createFileRoute("/library")({
   }),
   component: () => (
     <ComingSoon
-      section="§ IV"
       title="Canonical Library"
       description="A searchable bibliography of foundational books, papers and institutions. Currently in preparation."
     />

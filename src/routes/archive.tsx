@@ -12,7 +12,6 @@ export const Route = createFileRoute("/archive")({
   }),
   component: () => (
     <ComingSoon
-      section="§ VII"
       title="Newsletter Archive"
       description="Every past edition of the newsletter, preserved and searchable. Currently in preparation."
     />

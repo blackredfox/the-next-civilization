@@ -12,7 +12,6 @@ export const Route = createFileRoute("/authors")({
   }),
   component: () => (
     <ComingSoon
-      section="§ VI"
       title="Authors"
       description="The writers and thinkers contributing to the publication. Currently in preparation."
     />

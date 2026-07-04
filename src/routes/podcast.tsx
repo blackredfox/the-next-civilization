@@ -12,7 +12,6 @@ export const Route = createFileRoute("/podcast")({
   }),
   component: () => (
     <ComingSoon
-      section="§ X"
       title="Podcast"
       description="Long, unhurried conversations with thinkers, builders and historians. Currently in preparation."
     />

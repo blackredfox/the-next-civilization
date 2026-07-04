@@ -12,7 +12,6 @@ export const Route = createFileRoute("/reports")({
   }),
   component: () => (
     <ComingSoon
-      section="§ VIII"
       title="Annual Reports"
       description="A yearly long-form report on the state of the next civilization. The first volume is in preparation."
     />

@@ -1,111 +1,38 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 
 import { NewsletterSignupForm } from "@/components/newsletter-signup-form";
+import {
+  formatEssayDate,
+  getEssayPath,
+  getEssayReadingTime,
+  publishedEssays,
+} from "@/lib/essays";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "The Next Civilization — A publication on AI and human adaptation" },
-      { name: "description", content: "An independent editorial publication on artificial intelligence, robotics, capital and the long arc of human adaptation. Calm, considered, long-form." },
+      { title: "The Next Civilization - A publication on AI and human adaptation" },
+      {
+        name: "description",
+        content:
+          "An independent editorial publication on artificial intelligence, robotics, capital and the long arc of human adaptation. Calm, considered, long-form.",
+      },
       { property: "og:title", content: "The Next Civilization" },
-      { property: "og:description", content: "Thoughtful essays exploring how technology reshapes civilization. One article at a time." },
+      {
+        property: "og:description",
+        content:
+          "Thoughtful essays exploring how technology reshapes civilization. One article at a time.",
+      },
     ],
     links: [{ rel: "canonical", href: "/" }],
   }),
   component: Index,
 });
 
-const essays = [
-  {
-    issue: "Issue 01",
-    series: "On Labor & Judgment",
-    readTime: "14 min read",
-    date: "June 2026",
-    category: "Economics",
-    title: "The Quiet Realignment of Human Labor",
-    abstract:
-      "When intelligence becomes abundant, the value of judgment, taste and trust does not vanish. It concentrates — in fewer hands, and in stranger places than economists expected.",
-  },
-  {
-    issue: "Issue 02",
-    series: "On Institutions",
-    readTime: "11 min read",
-    date: "May 2026",
-    category: "Institutions",
-    title: "Institutions Built for a Slower World",
-    abstract:
-      "Our laws, schools and corporations were designed for a century of incremental change. The next decade will not be incremental — and the friction will be felt long before the policy catches up.",
-  },
-  {
-    issue: "Issue 03",
-    series: "On Capital",
-    readTime: "9 min read",
-    date: "April 2026",
-    category: "Capital",
-    title: "Capital, Distributed",
-    abstract:
-      "What happens when the means of producing intelligence are no longer scarce, no longer centralized, and the returns no longer geographically bound to a handful of cities.",
-  },
-];
-
-const researchAreas = [
-  { num: "01", title: "AI Economics", desc: "Markets, productivity and the shifting price of cognition." },
-  { num: "02", title: "Human Adaptation", desc: "How people, families and communities absorb accelerating change." },
-  { num: "03", title: "Distributed AI Capital", desc: "Ownership, access and the geography of intelligence." },
-  { num: "04", title: "Education", desc: "Learning systems for a world where knowledge is cheap." },
-  { num: "05", title: "Robotics", desc: "Embodied intelligence in physical economies." },
-  { num: "06", title: "Institutions", desc: "Governance, law and the slow machinery of trust." },
-];
-
-const sources = [
-  {
-    title: "From AGI to ASI",
-    author: "DeepMind",
-    kind: "Research",
-    year: "2025",
-    note: "A foundational map of the trajectory from general to superhuman systems, and the open problems that separate them.",
-  },
-  {
-    title: "Diffusion of Innovations",
-    author: "Everett M. Rogers",
-    kind: "Book",
-    year: "1962",
-    note: "The canonical theory of how new ideas and technologies move through societies — still the clearest lens for understanding AI adoption.",
-  },
-  {
-    title: "Crossing the Chasm",
-    author: "Geoffrey A. Moore",
-    kind: "Book",
-    year: "1991",
-    note: "Why most transformative technologies stall between early enthusiasts and the mainstream, and what determines whether they cross.",
-  },
-  {
-    title: "World Poll & Workplace Studies",
-    author: "Gallup",
-    kind: "Data",
-    year: "Ongoing",
-    note: "Decades of longitudinal evidence on how human beings actually experience work, change and institutions.",
-  },
-  {
-    title: "Monetary Policy & Productivity",
-    author: "European Central Bank",
-    kind: "Report",
-    year: "2024",
-    note: "A sober macroeconomic baseline for thinking about productivity shocks in a world of cheap intelligence.",
-  },
-  {
-    title: "Gonka",
-    author: "Distributed Compute Network",
-    kind: "Reference",
-    year: "2025",
-    note: "An early reference architecture for compute as a distributed, sovereign and economically owned resource.",
-  },
-];
+const featuredEssay = publishedEssays[0];
 
 const nav = [
   { to: "/essays", label: "Essays" },
-  { to: "/research", label: "Research" },
-  { to: "/library", label: "Library" },
   { to: "/newsletter", label: "Newsletter" },
 ];
 
@@ -116,9 +43,7 @@ function Index() {
       <main>
         <Hero />
         <About />
-        <Essays />
-        <Research />
-        <Sources />
+        <FeaturedEssay />
         <Newsletter />
       </main>
       <Footer />
@@ -151,7 +76,6 @@ function Header() {
 function Hero() {
   return (
     <section id="top" className="relative overflow-hidden border-b border-rule">
-      {/* Almost imperceptible warm atmospheric gradient */}
       <div
         aria-hidden="true"
         className="absolute inset-0 -z-10"
@@ -167,20 +91,20 @@ function Hero() {
         </h1>
         <div className="rule-gold w-24 mt-14 mb-10" />
         <p className="font-display italic text-[clamp(1.2rem,1.9vw,1.6rem)] leading-[1.45] max-w-[44ch] text-ink-soft">
-          Understanding not only how artificial intelligence evolves —
-          but how civilization must evolve alongside it.
+          Understanding not only how artificial intelligence evolves, but how
+          civilization must evolve alongside it.
         </p>
         <div className="mt-16 flex flex-wrap items-center gap-x-10 gap-y-4 text-[14px]">
           <Link
-            to="/newsletter"
+            to="/essays/ai-future-wall-of-work"
             className="group inline-flex items-center gap-3 bg-ink text-paper px-7 py-4 hover:bg-ink-soft transition-colors"
           >
-            Read the Newsletter
+            Read the First Essay
             <span aria-hidden className="transition-transform group-hover:translate-x-1">→</span>
           </Link>
-          <a href="#essays" className="hover-underline pb-[2px]">
-            Explore the current issues
-          </a>
+          <Link to="/newsletter" className="hover-underline pb-[2px]">
+            Receive future essays
+          </Link>
         </div>
       </div>
     </section>
@@ -188,12 +112,10 @@ function Hero() {
 }
 
 function SectionHeader({
-  section,
   title,
   intro,
   link,
 }: {
-  section: string;
   title: string;
   intro?: string;
   link?: { to: string; label: string };
@@ -201,8 +123,7 @@ function SectionHeader({
   return (
     <div className="grid lg:grid-cols-12 gap-x-12 gap-y-8 mb-20 lg:mb-24">
       <div className="lg:col-span-5">
-        <p className="eyebrow">{section}</p>
-        <h2 className="font-display text-4xl lg:text-5xl mt-6 leading-[1.05]">
+        <h2 className="font-display text-4xl lg:text-5xl leading-[1.05]">
           {title}
         </h2>
       </div>
@@ -227,8 +148,7 @@ function About() {
     <section id="about" className="border-b border-rule">
       <div className="mx-auto max-w-[1280px] px-6 lg:px-12 py-28 lg:py-40 grid lg:grid-cols-12 gap-x-12 gap-y-10">
         <div className="lg:col-span-4">
-          <p className="eyebrow">§ I</p>
-          <h2 className="font-display text-4xl lg:text-5xl mt-6 leading-[1.05]">
+          <h2 className="font-display text-4xl lg:text-5xl leading-[1.05]">
             Why this publication exists
           </h2>
         </div>
@@ -241,9 +161,8 @@ function About() {
           </p>
           <p>
             <em>The Next Civilization</em> exists because the conversation around
-            artificial intelligence has become loud, fast and shallow — and the
-            questions that will actually matter in twenty years are quiet, slow
-            and deep.
+            artificial intelligence has become loud, fast and shallow, while the
+            questions that will matter in twenty years are quiet, slow and deep.
           </p>
           <p>
             Following the news of technology tells you what changed this week.
@@ -257,123 +176,40 @@ function About() {
   );
 }
 
-function Essays() {
+function FeaturedEssay() {
   return (
     <section id="essays" className="border-b border-rule">
       <div className="mx-auto max-w-[1280px] px-6 lg:px-12 py-28 lg:py-40">
         <SectionHeader
-          section="§ II"
-          title="Current issues"
-          intro="Three essays open the first volume. Each begins a series the publication will return to over the coming years."
-          link={{ to: "/essays", label: "All issues" }}
+          title="The first essay"
+          intro="The opening essay of Volume I begins where the AI transition has become most human: work, responsibility, identity and physical reality."
+          link={{ to: "/essays", label: "Essay archive" }}
         />
-        <ul className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16 border-t border-rule pt-16">
-          {essays.map((e) => (
-            <li key={e.title}>
-              <article className="flex flex-col h-full">
-                <div className="flex items-baseline justify-between text-[11px] tracking-[0.18em] uppercase text-ink-soft">
-                  <span>{e.issue}</span>
-                  <span>{e.category}</span>
-                </div>
-                <div className="rule-gold w-10 mt-5 mb-6" />
-                <p className="font-display italic text-[14px] text-ink-soft">{e.series}</p>
-                <h3 className="font-display text-2xl lg:text-[1.7rem] leading-[1.2] mt-4">
-                  {e.title}
-                </h3>
-                <p className="mt-5 text-[15px] leading-[1.75] text-ink-soft max-w-[42ch]">
-                  {e.abstract}
-                </p>
-                <div className="mt-auto pt-8 flex items-center justify-between text-[12px] text-ink-soft">
-                  <span>{e.date}</span>
-                  <span>{e.readTime}</span>
-                </div>
-                <Link
-                  to="/essays"
-                  className="inline-block mt-5 text-[13px] tracking-wide hover-underline pb-[2px] self-start"
-                >
-                  Read essay
-                </Link>
-              </article>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-}
-
-function Research() {
-  return (
-    <section id="research" className="border-b border-rule bg-muted/50">
-      <div className="mx-auto max-w-[1280px] px-6 lg:px-12 py-28 lg:py-40">
-        <SectionHeader
-          section="§ III"
-          title="Areas of research"
-          intro="Six long arcs we follow. Each will become a dedicated section of the publication as the work matures."
-        />
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 border-t border-rule">
-          {researchAreas.map((r, i) => (
-            <Link
-              key={r.num}
-              to="/research"
-              className={`group border-b border-rule py-12 pr-6 lg:pr-10 pl-0 lg:pl-8 flex flex-col ${i % 3 !== 2 ? "lg:border-r" : ""}`}
+        <article className="border-t border-rule pt-16 grid lg:grid-cols-12 gap-x-12 gap-y-10">
+          <div className="lg:col-span-3 text-[12px] tracking-[0.18em] uppercase text-ink-soft space-y-3">
+            <p>{featuredEssay.category}</p>
+            <p>{featuredEssay.series}</p>
+            <p>{formatEssayDate(featuredEssay)}</p>
+            <p>{getEssayReadingTime(featuredEssay)}</p>
+          </div>
+          <div className="lg:col-span-8 lg:col-start-5">
+            <h3 className="font-display text-3xl lg:text-5xl leading-[1.05] max-w-[14ch]">
+              {featuredEssay.title}
+            </h3>
+            <p className="mt-7 font-display italic text-[1.2rem] lg:text-[1.45rem] leading-[1.5] text-ink-soft max-w-[42ch]">
+              {featuredEssay.subtitle}
+            </p>
+            <p className="mt-7 text-[16px] leading-[1.8] text-ink-soft max-w-[54ch]">
+              {featuredEssay.homepageSummary}
+            </p>
+            <a
+              href={getEssayPath(featuredEssay)}
+              className="inline-block mt-10 text-[13px] tracking-wide hover-underline pb-[2px]"
             >
-              <div className="flex items-baseline justify-between">
-                <span className="font-display text-[2.5rem] text-accent leading-none">{r.num}</span>
-                <span className="text-ink-soft text-lg transition-transform duration-500 group-hover:translate-x-1">→</span>
-              </div>
-              <h3 className="font-display text-2xl mt-8">{r.title}</h3>
-              <p className="mt-3 text-[14.5px] leading-[1.7] text-ink-soft max-w-[36ch]">{r.desc}</p>
-            </Link>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
-function Sources() {
-  return (
-    <section id="library" className="border-b border-rule">
-      <div className="mx-auto max-w-[1280px] px-6 lg:px-12 py-28 lg:py-40">
-        <SectionHeader
-          section="§ IV"
-          title="Canonical sources"
-          intro="A working bibliography for the next civilization — the books, papers and institutions that inform our thinking."
-        />
-        <ul className="border-t border-rule">
-          {sources.map((s, i) => (
-            <li key={s.title} className="border-b border-rule">
-              <Link
-                to="/library"
-                className="group grid grid-cols-12 gap-x-6 gap-y-2 items-baseline py-10 hover:bg-muted/60 transition-colors px-2 -mx-2"
-              >
-                <span className="col-span-2 md:col-span-1 font-mono text-xs text-ink-soft tabular-nums">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <div className="col-span-10 md:col-span-7">
-                  <h3 className="font-display text-xl lg:text-2xl leading-tight">
-                    {s.title}
-                  </h3>
-                  <p className="mt-3 text-[14.5px] leading-[1.7] text-ink-soft max-w-[52ch]">
-                    {s.note}
-                  </p>
-                </div>
-                <div className="col-start-3 md:col-start-9 col-span-10 md:col-span-4 flex flex-col md:items-end gap-1 text-[13px] text-ink-soft">
-                  <span>{s.author}</span>
-                  <span className="text-[11px] tracking-[0.18em] uppercase">
-                    {s.kind} · {s.year}
-                  </span>
-                </div>
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <div className="mt-12">
-          <Link to="/library" className="text-[13px] hover-underline pb-[2px]">
-            Enter the library →
-          </Link>
-        </div>
+              Read essay →
+            </a>
+          </div>
+        </article>
       </div>
     </section>
   );
@@ -384,14 +220,13 @@ function Newsletter() {
     <section id="newsletter" className="border-b border-rule">
       <div className="mx-auto max-w-[1280px] px-6 lg:px-12 py-28 lg:py-40">
         <div className="max-w-2xl mx-auto text-center">
-          <p className="eyebrow">§ V</p>
-          <h2 className="font-display text-4xl lg:text-6xl mt-6 leading-[1.05]">
+          <h2 className="font-display text-4xl lg:text-6xl leading-[1.05]">
             Join The Next Civilization
           </h2>
           <div className="rule-gold w-16 mx-auto mt-10 mb-10" />
           <p className="font-display italic text-[1.2rem] lg:text-[1.35rem] leading-[1.55] text-ink-soft max-w-[44ch] mx-auto">
             Receive thoughtful essays on how technology reshapes civilization.
-            One carefully researched article at a time. No hype, no breaking news —
+            One carefully researched article at a time. No hype, no breaking news,
             only ideas that remain valuable years from now.
           </p>
           <NewsletterSignupForm source="homepage" />

@@ -12,7 +12,6 @@ export const Route = createFileRoute("/research")({
   }),
   component: () => (
     <ComingSoon
-      section="§ III"
       title="Research"
       description="Dedicated research sections for each of the seven long arcs we follow. Currently in preparation."
     />

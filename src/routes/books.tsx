@@ -12,7 +12,6 @@ export const Route = createFileRoute("/books")({
   }),
   component: () => (
     <ComingSoon
-      section="§ IX"
       title="Books"
       description="A small imprint for long-form work that does not fit inside an essay. Currently in preparation."
     />

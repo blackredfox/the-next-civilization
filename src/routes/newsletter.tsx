@@ -5,9 +5,13 @@ import { NewsletterSignupForm } from "@/components/newsletter-signup-form";
 export const Route = createFileRoute("/newsletter")({
   head: () => ({
     meta: [
-      { title: "Newsletter — The Next Civilization" },
-      { name: "description", content: "Receive thoughtful essays on how technology reshapes civilization. One carefully researched article at a time." },
-      { property: "og:title", content: "Newsletter — The Next Civilization" },
+      { title: "Newsletter - The Next Civilization" },
+      {
+        name: "description",
+        content:
+          "Receive thoughtful essays on how technology reshapes civilization. One carefully researched article at a time.",
+      },
+      { property: "og:title", content: "Newsletter - The Next Civilization" },
       { property: "og:description", content: "One carefully researched article at a time." },
     ],
   }),
@@ -22,13 +26,14 @@ function NewsletterPage() {
           <Link to="/" className="font-display text-[17px] tracking-tight">
             The Next Civilization
           </Link>
-          <Link to="/" className="text-[13px] hover-underline pb-[2px]">← Return</Link>
+          <Link to="/" className="text-[13px] hover-underline pb-[2px]">
+            Return home
+          </Link>
         </div>
       </header>
       <main className="flex-1 flex items-center">
         <div className="mx-auto max-w-2xl w-full px-6 lg:px-12 py-28 text-center">
-          <p className="eyebrow">§ V</p>
-          <h1 className="font-display text-4xl lg:text-6xl mt-6 leading-[1.02]">
+          <h1 className="font-display text-4xl lg:text-6xl leading-[1.02]">
             Join The Next Civilization
           </h1>
           <div className="rule-gold w-16 mx-auto mt-10 mb-10" />

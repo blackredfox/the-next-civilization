@@ -19,6 +19,8 @@ import { Route as BooksRouteImport } from './routes/books'
 import { Route as AuthorsRouteImport } from './routes/authors'
 import { Route as ArchiveRouteImport } from './routes/archive'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as EssaysIndexRouteImport } from './routes/essays/index'
+import { Route as EssaysAiFutureWallOfWorkRouteImport } from './routes/essays/ai-future-wall-of-work'
 import { Route as ApiSubscribeRouteImport } from './routes/api/subscribe'
 
 const ResearchRoute = ResearchRouteImport.update({
@@ -71,6 +73,17 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EssaysIndexRoute = EssaysIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => EssaysRoute,
+} as any)
+const EssaysAiFutureWallOfWorkRoute =
+  EssaysAiFutureWallOfWorkRouteImport.update({
+    id: '/ai-future-wall-of-work',
+    path: '/ai-future-wall-of-work',
+    getParentRoute: () => EssaysRoute,
+  } as any)
 const ApiSubscribeRoute = ApiSubscribeRouteImport.update({
   id: '/api/subscribe',
   path: '/api/subscribe',
@@ -82,26 +95,29 @@ export interface FileRoutesByFullPath {
   '/archive': typeof ArchiveRoute
   '/authors': typeof AuthorsRoute
   '/books': typeof BooksRoute
-  '/essays': typeof EssaysRoute
+  '/essays': typeof EssaysRouteWithChildren
   '/library': typeof LibraryRoute
   '/newsletter': typeof NewsletterRoute
   '/podcast': typeof PodcastRoute
   '/reports': typeof ReportsRoute
   '/research': typeof ResearchRoute
   '/api/subscribe': typeof ApiSubscribeRoute
+  '/essays/ai-future-wall-of-work': typeof EssaysAiFutureWallOfWorkRoute
+  '/essays/': typeof EssaysIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/archive': typeof ArchiveRoute
   '/authors': typeof AuthorsRoute
   '/books': typeof BooksRoute
-  '/essays': typeof EssaysRoute
   '/library': typeof LibraryRoute
   '/newsletter': typeof NewsletterRoute
   '/podcast': typeof PodcastRoute
   '/reports': typeof ReportsRoute
   '/research': typeof ResearchRoute
   '/api/subscribe': typeof ApiSubscribeRoute
+  '/essays/ai-future-wall-of-work': typeof EssaysAiFutureWallOfWorkRoute
+  '/essays': typeof EssaysIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -109,13 +125,15 @@ export interface FileRoutesById {
   '/archive': typeof ArchiveRoute
   '/authors': typeof AuthorsRoute
   '/books': typeof BooksRoute
-  '/essays': typeof EssaysRoute
+  '/essays': typeof EssaysRouteWithChildren
   '/library': typeof LibraryRoute
   '/newsletter': typeof NewsletterRoute
   '/podcast': typeof PodcastRoute
   '/reports': typeof ReportsRoute
   '/research': typeof ResearchRoute
   '/api/subscribe': typeof ApiSubscribeRoute
+  '/essays/ai-future-wall-of-work': typeof EssaysAiFutureWallOfWorkRoute
+  '/essays/': typeof EssaysIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -131,19 +149,22 @@ export interface FileRouteTypes {
     | '/reports'
     | '/research'
     | '/api/subscribe'
+    | '/essays/ai-future-wall-of-work'
+    | '/essays/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/archive'
     | '/authors'
     | '/books'
-    | '/essays'
     | '/library'
     | '/newsletter'
     | '/podcast'
     | '/reports'
     | '/research'
     | '/api/subscribe'
+    | '/essays/ai-future-wall-of-work'
+    | '/essays'
   id:
     | '__root__'
     | '/'
@@ -157,6 +178,8 @@ export interface FileRouteTypes {
     | '/reports'
     | '/research'
     | '/api/subscribe'
+    | '/essays/ai-future-wall-of-work'
+    | '/essays/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -164,7 +187,7 @@ export interface RootRouteChildren {
   ArchiveRoute: typeof ArchiveRoute
   AuthorsRoute: typeof AuthorsRoute
   BooksRoute: typeof BooksRoute
-  EssaysRoute: typeof EssaysRoute
+  EssaysRoute: typeof EssaysRouteWithChildren
   LibraryRoute: typeof LibraryRoute
   NewsletterRoute: typeof NewsletterRoute
   PodcastRoute: typeof PodcastRoute
@@ -245,6 +268,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/essays/': {
+      id: '/essays/'
+      path: '/'
+      fullPath: '/essays/'
+      preLoaderRoute: typeof EssaysIndexRouteImport
+      parentRoute: typeof EssaysRoute
+    }
+    '/essays/ai-future-wall-of-work': {
+      id: '/essays/ai-future-wall-of-work'
+      path: '/ai-future-wall-of-work'
+      fullPath: '/essays/ai-future-wall-of-work'
+      preLoaderRoute: typeof EssaysAiFutureWallOfWorkRouteImport
+      parentRoute: typeof EssaysRoute
+    }
     '/api/subscribe': {
       id: '/api/subscribe'
       path: '/api/subscribe'
@@ -255,12 +292,25 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface EssaysRouteChildren {
+  EssaysAiFutureWallOfWorkRoute: typeof EssaysAiFutureWallOfWorkRoute
+  EssaysIndexRoute: typeof EssaysIndexRoute
+}
+
+const EssaysRouteChildren: EssaysRouteChildren = {
+  EssaysAiFutureWallOfWorkRoute: EssaysAiFutureWallOfWorkRoute,
+  EssaysIndexRoute: EssaysIndexRoute,
+}
+
+const EssaysRouteWithChildren =
+  EssaysRoute._addFileChildren(EssaysRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ArchiveRoute: ArchiveRoute,
   AuthorsRoute: AuthorsRoute,
   BooksRoute: BooksRoute,
-  EssaysRoute: EssaysRoute,
+  EssaysRoute: EssaysRouteWithChildren,
   LibraryRoute: LibraryRoute,
   NewsletterRoute: NewsletterRoute,
   PodcastRoute: PodcastRoute,

@@ -1,11 +1,9 @@
 import { Link } from "@tanstack/react-router";
 
 export function ComingSoon({
-  section,
   title,
   description,
 }: {
-  section: string;
   title: string;
   description: string;
 }) {
@@ -16,13 +14,14 @@ export function ComingSoon({
           <Link to="/" className="font-display text-[17px] tracking-tight">
             The Next Civilization
           </Link>
-          <Link to="/" className="text-[13px] hover-underline pb-[2px]">← Return</Link>
+          <Link to="/" className="text-[13px] hover-underline pb-[2px]">
+            Return home
+          </Link>
         </div>
       </header>
       <main className="flex-1 flex items-center">
         <div className="mx-auto max-w-2xl w-full px-6 lg:px-12 py-32 text-center">
-          <p className="eyebrow">{section}</p>
-          <h1 className="font-display text-4xl lg:text-6xl mt-6 leading-[1.02]">
+          <h1 className="font-display text-4xl lg:text-6xl leading-[1.02]">
             {title}
           </h1>
           <div className="rule-gold w-16 mx-auto mt-10 mb-10" />
@@ -31,7 +30,7 @@ export function ComingSoon({
           </p>
           <div className="mt-14">
             <Link to="/newsletter" className="inline-block text-[13px] tracking-wide border-b border-accent pb-[2px] hover:opacity-70 transition-opacity">
-              Be notified when this section opens
+              Receive future essays
             </Link>
           </div>
         </div>
